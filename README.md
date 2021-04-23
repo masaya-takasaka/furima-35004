@@ -1,13 +1,16 @@
 # テーブル設計
 
 ## usersテーブル
-| Column  | Type   | Options   |
-|---------|--------|-----------|
-|nickname |string  |null: false|
-|email    |string  |null: false|
-|name     |string  |null: false|
-|password |string  |null: false|
-|birthday |date    |null :false|
+| Column               | Type   | Options    |
+|----------------------|--------|------------|
+|nickname              |string  |null: false |
+|email                 |string  |unique: true|
+|last_name             |string  |null: false |
+|first_name            |string  |null: false |
+|ruby_last_name        |string  |null: false |
+|ruby_first_name       |string  |null: false |
+|encrypted_password    |string  |null: false |
+|birthday              |date    |null :false |
 
 ### Association
 
@@ -15,24 +18,21 @@
 - has_many :purchases
 
 ## itemsテーブル
-| Column         | Type     | Options         |
-|----------------|----------|-----------------|
-|user            |references|foreign_key: true|
-|image           |string    |null: false      |
-|product         |string    |null: false      |
-|comment         |text      |null: false      |
-|category        |string    |null: false      |
-|status          |string    |null: false      |
-|delivery_charge |numeric   |null: false      |
-|delivery_area   |numeric   |null: false      |
-|delivery_days   |numeric   |null: false      |
-|price           |numeric   |null: false      |
-|shipping_address|references|foreign_key: true|
-|purchase        |references|foreign_key: true|
+| Column            | Type     | Options         |
+|-------------------|----------|-----------------|
+|user               |references|foreign_key: true|
+|product            |string    |null: false      |
+|comment            |text      |null: false      |
+|category_id        |integer   |null: false      |
+|status_id          |integer   |null: false      |
+|delivery_charge_id |integer   |null: false      |
+|delivery_area_id   |integer   |null: false      |
+|delivery_days_id   |integer   |null: false      |
+|price              |numeric   |null: false      |
+
 
 ### Association
 
-- has_one :shipping_addresses
 - has_one :purchases
 
 ## shipping_addressesテーブル
@@ -43,18 +43,22 @@
 |city            |string    |null: false      |
 |address         |string    |null: false      |
 |phone_number    |integer   |null: false      |
+|building        |string    |null: false      |
+|purchase        |references|foreign_key: true|
 
 ### Association
 
-- belongs_to :items
+- has_one :purchases
+- belongs_to :item
 
 ## purchasesテーブル
 | Column         | Type     | Options         |
 |----------------|----------|-----------------|
-|buyer           |string    |null: false      |
+|shipping_address|references|foreign_key: true|
 |user            |references|foreign_key: true|
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :shipping_address
+- belongs_to :user
+- belongs_to :item
