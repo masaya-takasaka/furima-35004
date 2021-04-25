@@ -28,22 +28,23 @@
 |delivery_charge_id |integer   |null: false      |
 |delivery_area_id   |integer   |null: false      |
 |delivery_days_id   |integer   |null: false      |
-|price              |numeric   |null: false      |
+|price              |integer   |null: false      |
 
 
 ### Association
 
+- belongs_to: user
 - has_one :purchases
 
 ## shipping_addressesテーブル
 | Column         | Type     | Options         |
 |----------------|----------|-----------------|
 |postal_code     |integer   |null: false      |
-|prefecture      |string    |null: false      |
+|delivery_area_id|integer   |null: false      |
 |city            |string    |null: false      |
 |address         |string    |null: false      |
-|phone_number    |integer   |null: false      |
-|building        |string    |null: false      |
+|phone_number    |string    |null: false      |
+|building        |string    |                 |
 |purchase        |references|foreign_key: true|
 
 ### Association
