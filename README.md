@@ -33,13 +33,13 @@
 
 ### Association
 
-- belongs_to: user
-- has_one :purchases
+- belongs_to :user
+- has_one :purchase
 
 ## shipping_addressesテーブル
 | Column         | Type     | Options         |
 |----------------|----------|-----------------|
-|postal_code     |integer   |null: false      |
+|postal_code     |string    |null: false      |
 |delivery_area_id|integer   |null: false      |
 |city            |string    |null: false      |
 |address         |string    |null: false      |
@@ -49,17 +49,17 @@
 
 ### Association
 
-- has_one :purchases
-- belongs_to :item
+- belongs_to :purchase
+
 
 ## purchasesテーブル
 | Column         | Type     | Options         |
 |----------------|----------|-----------------|
-|shipping_address|references|foreign_key: true|
+|item            |references|foreign_key: true|
 |user            |references|foreign_key: true|
 
 ### Association
 
-- belongs_to :shipping_address
+- has_one :shipping_address
 - belongs_to :user
 - belongs_to :item
