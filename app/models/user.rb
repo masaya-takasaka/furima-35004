@@ -4,10 +4,23 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-　VALIDA_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-　VALID_PASSWORD_REGEX　=/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,}\z/
-
-  validates　:nickname,       presence: true
-  validates  :email,          {presence: true,  ,  format: { with: VALID_EMAIL_REGEX },   uniqueness: { case_sensitive: false }}
-  validates  :password,       {presence: true,  ,  format: { with: VALID_PASSWORD_REGEX}}
+  
+         PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+         validates_format_of :password, with: PASSWORD_REGEX
+       
+         with_options presence: true do
+           validates :nickname
+           validates :birthday
+           with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ } do
+             validates :last_name
+             validates :first_name
+           end
+           with_options format: { with: /\A[ァ-ヶー－]+\z/ } do
+             validates :ruby_last_name
+             validates :ruby_first_name
+           end
+         end
+       
+         has_many :items
+         
 end
