@@ -21,4 +21,9 @@ class ItemsController < ApplicationController
   def destroy
   end
 
+  private
+
+  def item_params
+    params.require(:item).permit(:image, :category_id, :status_id, :delivery_charge_id, :delivery_area_id, :delivery_days_id, :price ).merge(user_id: current_user.id)
+  end
 end
