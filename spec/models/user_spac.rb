@@ -112,6 +112,16 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Ruby first name is invalid")
       end
+      it '半角文字だと登録できないこと'do
+       @user.ruby_last_name = 'xyz'
+       @user.valid?
+       expect(@user.errors.full_messages).to include("Ruby last name is invalid")
+      end
+      it '半角文字だと登録できないこと'do
+        @user.ruby_first_name = 'abc'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Ruby last name is invalid")
+      end
       it '生年月日が必須であること' do
         @user.birthday = ''
         @user.valid?
